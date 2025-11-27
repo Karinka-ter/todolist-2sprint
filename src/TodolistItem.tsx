@@ -8,12 +8,12 @@ type Props = {
   todolist: Todolist
   tasks: Task[]
   deleteTask: (todolistId: string, taskId: string) => void
-  changeFilter: (todolistId: string, filter: FilterValues) => void
-  createTask: (todolistId: string, title: string) => void
-  changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
+  changeTodolistFilter: (todolistId: string, filter: FilterValues) => void
+  addTask: (todolistId: string, title: string) => void
+  toggleTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
   deleteTodolist: (todolistId: string) => void
-  onUpdateTitleTodo: (id:string,title:string) => void
-  onUpdateTitleTask:(todoId:string,title:string,taskId:string)=>void
+  updateTodolistTitle : (id:string,title:string) => void
+  updateTaskTitle:(todoId:string,title:string,taskId:string)=>void
 }
 
 export const TodolistItem = (props: Props) => {
@@ -21,21 +21,21 @@ export const TodolistItem = (props: Props) => {
     todolist: {id, title, filter},
     tasks,
     deleteTask,
-    changeFilter,
-    createTask,
-    changeTaskStatus,
+    changeTodolistFilter,
+    addTask,
+    toggleTaskStatus,
     deleteTodolist,
-    onUpdateTitleTodo,
-    onUpdateTitleTask
+    updateTodolistTitle ,
+    updateTaskTitle
   } = props
 
 
   const taskTitle =(title:string)=>{
-    createTask(id,title)
+    addTask(id,title)
   }
 
   const changeFilterHandler = (filter: FilterValues) => {
-    changeFilter(id, filter)
+    changeTodolistFilter(id, filter)
   }
 
   const deleteTodolistHandler = () => {
@@ -43,7 +43,7 @@ export const TodolistItem = (props: Props) => {
   }
 
   const onEditTitleTodo =(title:string)=>{
-    onUpdateTitleTodo(id,title)
+    updateTodolistTitle(id,title)
   }
 
 
@@ -66,11 +66,11 @@ export const TodolistItem = (props: Props) => {
 
                 const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
                   const newStatusValue = e.currentTarget.checked
-                  changeTaskStatus(id, task.id, newStatusValue)
+                  toggleTaskStatus(id, task.id, newStatusValue)
                 }
 
                 const onEditTitleTask=(title:string)=>{
-                  onUpdateTitleTask(id,title,task.id)
+                  updateTaskTitle (id,title,task.id)
                 }
 
                 return (
