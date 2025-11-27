@@ -70,6 +70,9 @@ export const App = () => {
     setThemeMode(themeMode === 'light' ? 'dark' : 'light')
   }
 
+
+  //todolists
+
   const changeFilter = (todolistId: string, filter: FilterValues) => {
     setTodolists(todolists.map(todolist => todolist.id === todolistId ? {...todolist, filter} : todolist))
   }
@@ -90,6 +93,8 @@ export const App = () => {
   const changeTodolistTitle = (todolistId: string, title: string) => {
     setTodolists(todolists.map(todolist => todolist.id === todolistId ? {...todolist, title} : todolist))
   }
+
+  //tasks
 
   const deleteTask = (todolistId: string, taskId: string) => {
     setTasks({...tasks, [todolistId]: tasks[todolistId].filter(task => task.id !== taskId)})
