@@ -3,6 +3,10 @@ import {useState} from 'react'
 import {v1} from 'uuid'
 import {TodolistItem} from './TodolistItem'
 import {CreateItemForm} from "./CreateItemForm.tsx";
+import {AppBar, Container, Grid, Paper, Toolbar} from '@mui/material';
+import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
+import MenuIcon from '@mui/icons-material/Menu'
 
 export type Todolist = {
     id: string
@@ -81,7 +85,21 @@ export const App = () => {
 
     return (
         <div className="app">
+            <AppBar position="static" sx={{ mb: '30px' }}>
+                <Toolbar>
+                    <Container maxWidth={'lg'}>
+                    <IconButton color="inherit">
+                        <MenuIcon/>
+                    </IconButton>
+                            <Button color="inherit">Sign in</Button>
+                    </Container>
+                </Toolbar>
+            </AppBar>
+            <Container maxWidth={'lg'}>
+                <Grid container sx={{ mb: '30px' }}>
             <CreateItemForm onGetTitle={addTodolist}/>
+                </Grid>
+                <Grid container spacing={4}>
             {todolists.map(todolist => {
                 const todolistTasks = tasks[todolist.id]
                 let filteredTasks = todolistTasks
@@ -93,6 +111,8 @@ export const App = () => {
                 }
 
                 return (
+                    <Grid key={todolist.id}>
+                        <Paper sx={{ p: '0 20px 20px 20px' }}>
                     <TodolistItem key={todolist.id}
                                   todolist={todolist}
                                   tasks={filteredTasks}
@@ -104,8 +124,12 @@ export const App = () => {
                                   updateTodolistTitle={updateTodolistTitle}
                                   updateTaskTitle={updateTaskTitle}
                     />
+                            </Paper>
+                    </Grid>
                 )
             })}
+                </Grid>
+            </Container>
         </div>
     )
 }

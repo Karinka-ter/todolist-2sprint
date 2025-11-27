@@ -1,5 +1,7 @@
-import {Button} from "./Button.tsx";
 import {type ChangeEvent, type KeyboardEvent, useState} from "react";
+import {TextField} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import AddBoxIcon from '@mui/icons-material/AddBox'
 
 type Props = {
     onGetTitle: (title: string) => void
@@ -33,14 +35,19 @@ export const CreateItemForm = ({onGetTitle}: Props) => {
 
     return (
         <div>
-            <input
-                className={error ? 'error' : ''}
-                value={taskTitle}
-                onChange={changeTitleHandler}
-                onKeyDown={onKeyDownHandler}
-            />
-            <Button title={'+'} onClick={onClickHandler}/>
-            {error && <div className={'error-message'}>{error}</div>}
+            <TextField label={'Enter a title'}
+                       variant={'outlined'}
+                       className={error ? 'error' : ''}
+                       value={taskTitle}
+                       size={'small'}
+                       error={!!error}
+                       helperText={error}
+                       onChange={changeTitleHandler}
+                       onKeyDown={onKeyDownHandler}/>
+
+            <IconButton onClick={onClickHandler} color={'primary'}>
+                <AddBoxIcon/>
+            </IconButton>
         </div>
     );
 };
