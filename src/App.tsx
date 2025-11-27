@@ -71,6 +71,14 @@ export const App = () => {
     setTasks({...tasks,[todoId]:[]})
   }
 
+  const onUpdateTitleTodo=(id:string,title:string)=>{
+    setTodolists(todolists.map(el=>el.id===id? {...el,title}:el))
+  }
+
+  const onUpdateTitleTask=(todoId:string,title:string,taskId:string)=>{
+    setTasks({...tasks,[todoId]:tasks[todoId].map(el=>el.id===taskId?{...el,title}:el)})
+  }
+
   return (
       <div className="app">
         <CreateItemForm onGetTitle={createTodolist}/>
@@ -92,7 +100,10 @@ export const App = () => {
                             changeFilter={changeFilter}
                             createTask={createTask}
                             changeTaskStatus={changeTaskStatus}
-                            deleteTodolist={deleteTodolist}/>
+                            deleteTodolist={deleteTodolist}
+                            onUpdateTitleTodo={onUpdateTitleTodo}
+                            onUpdateTitleTask={onUpdateTitleTask}
+              />
           )
         })}
       </div>
