@@ -38,7 +38,7 @@ export const App = () => {
   const todolistId1 = v1()
   const todolistId2 = v1()
 
-  const [todolists, setTodolists] = useState<Todolist[]>([
+  const [todoLists, setTodoLists] = useState<Todolist[]>([
     {id: todolistId1, title: 'What to learn', filter: 'all'},
     {id: todolistId2, title: 'What to buy', filter: 'all'},
   ])
@@ -74,24 +74,24 @@ export const App = () => {
   //todolists
 
   const changeFilter = (todolistId: string, filter: FilterValues) => {
-    setTodolists(todolists.map(todolist => todolist.id === todolistId ? {...todolist, filter} : todolist))
+    setTodoLists(todoLists.map(todolist => todolist.id === todolistId ? {...todolist, filter} : todolist))
   }
 
   const createTodolist = (title: string) => {
     const todolistId = v1()
     const newTodolist: Todolist = {id: todolistId, title, filter: 'all'}
-    setTodolists([newTodolist, ...todolists])
+    setTodoLists([newTodolist, ...todoLists])
     setTasks({...tasks, [todolistId]: []})
   }
 
   const deleteTodolist = (todolistId: string) => {
-    setTodolists(todolists.filter(todolist => todolist.id !== todolistId))
+    setTodoLists(todoLists.filter(todolist => todolist.id !== todolistId))
     delete tasks[todolistId]
     setTasks({...tasks})
   }
 
   const changeTodolistTitle = (todolistId: string, title: string) => {
-    setTodolists(todolists.map(todolist => todolist.id === todolistId ? {...todolist, title} : todolist))
+    setTodoLists(todoLists.map(todolist => todolist.id === todolistId ? {...todolist, title} : todolist))
   }
 
   //tasks
@@ -137,7 +137,7 @@ export const App = () => {
               <CreateItemForm onCreateItem={createTodolist}/>
             </Grid>
             <Grid container spacing={4}>
-              {todolists.map(todolist => {
+              {todoLists.map(todolist => {
                 const todolistTasks = tasks[todolist.id]
                 let filteredTasks = todolistTasks
                 if (todolist.filter === 'active') {
